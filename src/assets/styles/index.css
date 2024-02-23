@@ -1,0 +1,18 @@
+@import url("vendor/normalize.css");
+@import url("variables/global.css");
+
+.app {
+  font: var(--font-m);
+  background: deepskyblue;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-size-adjust: 100%;
+  text-rendering: optimizelegibility;
+  color: black;
+  min-height: 100vh;
+}
+
+h1 {
+  font: var(--font-l);
+  margin: 0;
+}

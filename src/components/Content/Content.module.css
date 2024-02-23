@@ -1,0 +1,11 @@
+.page {
+  width: 100%;
+  box-sizing: border-box;
+  min-width: 320px;
+  margin: 0 auto;
+  padding: 1em;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  flex-grow: 1;
+}

@@ -1,0 +1,12 @@
+.Footer {
+  padding: 24px 0;
+  border-top: 1px solid rgba(16, 12, 52, 0.3);
+  height: 24px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.Footer__copyright {
+  font: var(--font-m);
+  margin: 0;
+}
