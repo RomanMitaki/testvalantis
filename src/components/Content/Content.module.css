@@ -1,11 +1,25 @@
-.page {
+.Content {
   width: 100%;
   box-sizing: border-box;
   min-width: 320px;
   margin: 0 auto;
   padding: 1em;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
   text-align: center;
   flex-grow: 1;
+}
+
+.Content__cardsContainer {
+  width: 100%;
+  display: grid;
+  margin: 0 auto;
+  grid-template-columns: repeat(auto-fit, minmax(325px, 1fr));
+  grid-template-rows: repeat(auto-fit, minmax(393px, 1fr));
+  gap: 20px;
+  grid-auto-flow: row;
+  grid-auto-rows: minmax(393px, 1fr);
+
 }

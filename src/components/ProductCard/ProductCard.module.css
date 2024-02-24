@@ -1,0 +1,12 @@
+.ProductCard {
+  min-width: 325px;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 393px;
+  justify-content: space-between;
+  box-sizing: border-box;
+  position: relative;
+  z-index: 0;
+}
