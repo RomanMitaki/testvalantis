@@ -1,15 +1,20 @@
-import React from "react";
+import React, { FC } from "react";
 import classes from "./ProductCard.module.css";
+import { TItem } from "../../utils/types";
 
-const ProductCard = () => {
+type TProductCardProps = {
+  item: TItem;
+};
+const ProductCard: FC<TProductCardProps> = ({ item }) => {
+  const { brand, product, price } = item;
   return (
     <div className={classes.ProductCard}>
       <img src="photo.jpg" alt="Product Photo" />
-      <h2>Название бренда</h2>
+      <h2>{brand || "Бренд не указан"}</h2>
       <p>
-        <strong>Цена:</strong> $100
+        <strong>Цена:</strong> {price || "подлежит уточнению"}
       </p>
-      <h3>Наименование товара</h3>
+      <h3>{product || "Наименование не указано"}</h3>
     </div>
   );
 };
