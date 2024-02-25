@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { Suspense, useCallback, useEffect, useState } from "react";
 import classes from "./Content.module.css";
 import ProductCard from "../ProductCard/ProductCard";
 import { getIds, getItems } from "../../utils/api";
@@ -6,6 +6,7 @@ import { TIds, TItems } from "../../utils/types";
 import { checkItems } from "../../services/checkItems";
 import Pagination from "../Pagination/Pagination";
 import { splitIds } from "../../services/splitIds";
+import Loader from "../Loader/Loader";
 
 const ITEMS_PER_PAGE = 50;
 
@@ -93,8 +94,8 @@ const Content = () => {
 
   return (
     <main className={classes.Content}>
-      <div className={classes.Content__wrapper}>
-        {items.length ? (
+      {items.length && !isLoading ? (
+        <div className={classes.Content__wrapper}>
           <ul className={classes.Content__cardsContainer}>
             {items
               .slice(
@@ -105,12 +106,13 @@ const Content = () => {
                 <li key={index}>{<ProductCard item={item} />}</li>
               ))}
           </ul>
-        ) : (
-          "no data"
-        )}
-      </div>
+        </div>
+      ) : (
+        <Loader />
+      )}
+
       <div className={classes.Content__paginationContainer}>
-        {items.length ? (
+        {items.length && !isLoading ? (
           <Pagination
             onNextPageClick={handleNextPageClick}
             onPrevPageClick={handlePrevPageClick}

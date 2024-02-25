@@ -19,7 +19,6 @@
   box-sizing: border-box;
 }
 
-
 .ProductCard:hover {
   border: 2px solid #ff00a8;
 }
