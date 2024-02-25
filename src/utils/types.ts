@@ -1,6 +1,4 @@
-export type TId = {
-  id: string;
-};
+export type TId = string;
 
 export type TItem = {
   brand: string | null;

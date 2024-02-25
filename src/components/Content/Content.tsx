@@ -7,6 +7,7 @@ import { checkItems } from "../../services/checkItems";
 import Pagination from "../Pagination/Pagination";
 import { splitIds } from "../../services/splitIds";
 import Loader from "../Loader/Loader";
+import DropdownMenu from "../Dropdownmenu/Dropdownmenu";
 
 const ITEMS_PER_PAGE = 50;
 
@@ -93,38 +94,41 @@ const Content = () => {
   }, [page]);
 
   return (
-    <main className={classes.Content}>
-      {items.length && !isLoading ? (
-        <div className={classes.Content__wrapper}>
-          <ul className={classes.Content__cardsContainer}>
-            {items
-              .slice(
-                page === 1 ? 0 : ITEMS_PER_PAGE * page - ITEMS_PER_PAGE,
-                page === 1 ? ITEMS_PER_PAGE : ITEMS_PER_PAGE * page,
-              )
-              .map((item, index) => (
-                <li key={index}>{<ProductCard item={item} />}</li>
-              ))}
-          </ul>
-        </div>
-      ) : (
-        <Loader />
-      )}
-
-      <div className={classes.Content__paginationContainer}>
+    <main className={classes.Main}>
+      <DropdownMenu />
+      <div className={classes.Content}>
         {items.length && !isLoading ? (
-          <Pagination
-            onNextPageClick={handleNextPageClick}
-            onPrevPageClick={handlePrevPageClick}
-            disable={{
-              left: page === 1,
-              right: page === getTotalPageCount(items.length),
-            }}
-            nav={{ current: page, total: getTotalPageCount(items.length) }}
-          />
+          <div className={classes.Content__wrapper}>
+            <ul className={classes.Content__cardsContainer}>
+              {items
+                .slice(
+                  page === 1 ? 0 : ITEMS_PER_PAGE * page - ITEMS_PER_PAGE,
+                  page === 1 ? ITEMS_PER_PAGE : ITEMS_PER_PAGE * page,
+                )
+                .map((item, index) => (
+                  <li key={index}>{<ProductCard item={item} />}</li>
+                ))}
+            </ul>
+          </div>
         ) : (
-          <div />
+          <Loader />
         )}
+
+        <div className={classes.Content__paginationContainer}>
+          {items.length && !isLoading ? (
+            <Pagination
+              onNextPageClick={handleNextPageClick}
+              onPrevPageClick={handlePrevPageClick}
+              disable={{
+                left: page === 1,
+                right: page === getTotalPageCount(items.length),
+              }}
+              nav={{ current: page, total: getTotalPageCount(items.length) }}
+            />
+          ) : (
+            <div />
+          )}
+        </div>
       </div>
     </main>
   );

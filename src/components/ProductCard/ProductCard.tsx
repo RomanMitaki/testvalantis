@@ -6,7 +6,7 @@ type TProductCardProps = {
   item: TItem;
 };
 const ProductCard: FC<TProductCardProps> = ({ item }) => {
-  const { brand, product, price } = item;
+  const { brand, product, id, price } = item;
   return (
     <div className={classes.ProductCard}>
       <img
@@ -14,6 +14,9 @@ const ProductCard: FC<TProductCardProps> = ({ item }) => {
         src="photo.jpg"
         alt="Product Photo"
       />
+      <p>
+        <strong>Id:</strong> {id}
+      </p>
       <h2>{brand || "Бренд не указан"}</h2>
       <p>
         <strong>Цена:</strong> {price || "подлежит уточнению"}
