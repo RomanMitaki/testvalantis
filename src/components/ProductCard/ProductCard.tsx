@@ -9,7 +9,11 @@ const ProductCard: FC<TProductCardProps> = ({ item }) => {
   const { brand, product, price } = item;
   return (
     <div className={classes.ProductCard}>
-      <img src="photo.jpg" alt="Product Photo" />
+      <img
+        className={classes.ProductCard__image}
+        src="photo.jpg"
+        alt="Product Photo"
+      />
       <h2>{brand || "Бренд не указан"}</h2>
       <p>
         <strong>Цена:</strong> {price || "подлежит уточнению"}

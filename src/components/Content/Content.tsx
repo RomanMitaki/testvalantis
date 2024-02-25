@@ -93,9 +93,9 @@ const Content = () => {
 
   return (
     <main className={classes.Content}>
-      <div className={classes.Content__cardsContainer}>
+      <div className={classes.Content__wrapper}>
         {items.length ? (
-          <ul>
+          <ul className={classes.Content__cardsContainer}>
             {items
               .slice(
                 page === 1 ? 0 : ITEMS_PER_PAGE * page - ITEMS_PER_PAGE,
@@ -109,8 +109,8 @@ const Content = () => {
           "no data"
         )}
       </div>
-      <div>
-        {items.length && (
+      <div className={classes.Content__paginationContainer}>
+        {items.length ? (
           <Pagination
             onNextPageClick={handleNextPageClick}
             onPrevPageClick={handlePrevPageClick}
@@ -120,6 +120,8 @@ const Content = () => {
             }}
             nav={{ current: page, total: getTotalPageCount(items.length) }}
           />
+        ) : (
+          <div />
         )}
       </div>
     </main>

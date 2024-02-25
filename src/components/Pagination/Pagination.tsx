@@ -1,5 +1,6 @@
 import React from "react";
 import classes from "./Pagination.module.css";
+import { classNames } from "../../services/classNames";
 
 type PaginationProps = {
   onNextPageClick: () => void;
@@ -27,7 +28,13 @@ const Pagination = (props: PaginationProps) => {
   return (
     <div className={classes.Pagination}>
       <button
-        className={classes.Pagination__arrow}
+        className={
+          disable.left
+            ? classNames(classes.Pagination__arrow, {}, [
+                classes.Pagination__arrow_disabled,
+              ])
+            : classNames(classes.Pagination__arrow)
+        }
         type="button"
         onClick={handlePrevPageClick}
         disabled={disable.left}
@@ -40,7 +47,13 @@ const Pagination = (props: PaginationProps) => {
         </span>
       )}
       <button
-        className={classes.Pagination__arrow}
+        className={
+          disable.right
+            ? classNames(classes.Pagination__arrow, {}, [
+                classes.Pagination__arrow_disabled,
+              ])
+            : classNames(classes.Pagination__arrow)
+        }
         type="button"
         onClick={handleNextPageClick}
         disabled={disable.right}
