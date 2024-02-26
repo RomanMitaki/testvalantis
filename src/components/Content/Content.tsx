@@ -1,8 +1,14 @@
-import React, { Suspense, useCallback, useEffect, useState } from "react";
+import React, {
+  FormEvent,
+  Suspense,
+  useCallback,
+  useEffect,
+  useState,
+} from "react";
 import classes from "./Content.module.css";
 import ProductCard from "../ProductCard/ProductCard";
-import { getIds, getItems } from "../../utils/api";
-import { TIds, TItems } from "../../utils/types";
+import { getFilteredIds, getIds, getItems } from "../../utils/api";
+import { TFilter, TIds, TItems } from "../../utils/types";
 import { checkItems } from "../../services/checkItems";
 import Pagination from "../Pagination/Pagination";
 import { splitIds } from "../../services/splitIds";
@@ -21,6 +27,8 @@ const Content = () => {
   const [page, setPage] = useState(1);
   const [isLoading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [filter, setFilter] = useState<TFilter>("Disabled");
+  const [filterValue, setFilterValue] = useState("");
 
   const fetchItems = async (currIds: TIds) => {
     try {
@@ -43,21 +51,34 @@ const Content = () => {
       setLoading(false);
     }
   };
+  const fetchIds = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const data = await getIds();
+      if (data) setIds(data);
+    } catch (error) {
+      setError(error instanceof Error ? error.message : "Unknown Error");
+      setIds([]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const fetchFilteredIds = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const data = await getFilteredIds(3, filterValue);
+      if (data) setIds(data);
+    } catch (error) {
+      setError(error instanceof Error ? error.message : "Unknown Error");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    const fetchIds = async () => {
-      setLoading(true);
-      setError(null);
-      try {
-        const data = await getIds();
-        if (data) setIds(data);
-      } catch (error) {
-        setError(error instanceof Error ? error.message : "Unknown Error");
-        setIds([]);
-      } finally {
-        setLoading(false);
-      }
-    };
     fetchIds();
   }, []);
 
@@ -70,7 +91,7 @@ const Content = () => {
 
   useEffect(() => {
     fetchItems(idsChunks[0]);
-  }, [idsChunks[0]]);
+  }, [idsChunks]);
 
   useEffect(() => {}, []);
 
@@ -93,11 +114,28 @@ const Content = () => {
     setPage(prev > 0 ? prev : current);
   }, [page]);
 
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setItems([]);
+
+    if (filter === "Price") {
+      fetchFilteredIds();
+    }
+  };
+
   return (
     <main className={classes.Main}>
-      <DropdownMenu />
+      <DropdownMenu
+        handleSubmit={handleSubmit}
+        setFilter={setFilter}
+        setFilterValue={setFilterValue}
+        filter={filter}
+        filterValue={filterValue}
+      />
       <div className={classes.Content}>
-        {items.length && !isLoading ? (
+        {!items.length && !isLoading ? (
+          <p>Подходящих товаров не найдено</p>
+        ) : items.length && !isLoading ? (
           <div className={classes.Content__wrapper}>
             <ul className={classes.Content__cardsContainer}>
               {items

@@ -41,6 +41,38 @@ export const getIds = async (retries = 3) => {
   }
 };
 
+export const getFilteredIds = async (retries = 3, param: string) => {
+  try {
+    const res = await fetch(baseApiUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-Auth": token,
+      },
+      body: JSON.stringify({
+        action: "filter",
+        params: { price: Number(`${param}`) },
+      }),
+    });
+    if (!res.ok) {
+      throw new Error(`Network response was not ok, status: ${res.status}`);
+    }
+    const data = await res.json();
+    const result: TIds = data.result;
+    return result;
+  } catch (error) {
+    error instanceof Error
+      ? console.error("Fetch error:", error.message)
+      : console.error("Unknown Error");
+    if (retries > 0) {
+      console.log(`Retrying... Attempts left: ${retries - 1}`);
+      await getFilteredIds(retries - 1, param);
+    } else {
+      console.log("Exceeded maximum number of retries");
+    }
+  }
+};
+
 export const getItems = async (retries = 3, ids: TIds) => {
   try {
     const res = await fetch(baseApiUrl, {
