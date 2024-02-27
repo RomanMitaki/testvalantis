@@ -27,7 +27,7 @@ const Content = () => {
   const [page, setPage] = useState(1);
   const [isLoading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [filter, setFilter] = useState<TFilter>("Disabled");
+  const [filter, setFilter] = useState<TFilter>("disabled");
   const [filterValue, setFilterValue] = useState("");
 
   const fetchItems = async (currIds: TIds) => {
@@ -69,7 +69,7 @@ const Content = () => {
     setLoading(true);
     setError(null);
     try {
-      const data = await getFilteredIds(3, filterValue);
+      const data = await getFilteredIds(3, filter, filterValue);
       if (data) setIds(data);
     } catch (error) {
       setError(error instanceof Error ? error.message : "Unknown Error");
@@ -103,7 +103,7 @@ const Content = () => {
     const next = current + 1;
     const total = items.length ? getTotalPageCount(items.length) : current;
     setPage(next <= total ? next : current);
-    if (current === total - 1 && Math.ceil(total / 2) <= idsChunks.length) {
+    if (current === total - 1 && Math.ceil(total / 2) < idsChunks.length) {
       fetchItems(idsChunks[Math.ceil(current / 2)]);
     }
   }, [page, items, idsChunks, getTotalPageCount, fetchItems]);
@@ -117,8 +117,10 @@ const Content = () => {
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setItems([]);
-
-    if (filter === "Price") {
+    setPage(1);
+    if (filter === "disabled") {
+      fetchIds();
+    } else {
       fetchFilteredIds();
     }
   };
@@ -133,7 +135,7 @@ const Content = () => {
         filterValue={filterValue}
       />
       <div className={classes.Content}>
-        {!items.length && !isLoading ? (
+        {!items.length && !isLoading && filter !== "disabled" ? (
           <p>Подходящих товаров не найдено</p>
         ) : items.length && !isLoading ? (
           <div className={classes.Content__wrapper}>

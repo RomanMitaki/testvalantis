@@ -11,4 +11,4 @@ export type TIds = TId[];
 
 export type TItems = TItem[];
 
-export type TFilter = "Disabled" | "Product" | "Price" | "Brand";
+export type TFilter = "disabled" | "product" | "price" | "brand";

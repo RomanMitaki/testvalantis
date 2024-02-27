@@ -41,7 +41,11 @@ export const getIds = async (retries = 3) => {
   }
 };
 
-export const getFilteredIds = async (retries = 3, param: string) => {
+export const getFilteredIds = async (
+  retries = 3,
+  param: string,
+  value: string,
+) => {
   try {
     const res = await fetch(baseApiUrl, {
       method: "POST",
@@ -51,7 +55,7 @@ export const getFilteredIds = async (retries = 3, param: string) => {
       },
       body: JSON.stringify({
         action: "filter",
-        params: { price: Number(`${param}`) },
+        params: { [param]: param === "price" ? Number(value) : value },
       }),
     });
     if (!res.ok) {
@@ -66,7 +70,7 @@ export const getFilteredIds = async (retries = 3, param: string) => {
       : console.error("Unknown Error");
     if (retries > 0) {
       console.log(`Retrying... Attempts left: ${retries - 1}`);
-      await getFilteredIds(retries - 1, param);
+      await getFilteredIds(retries - 1, param, value);
     } else {
       console.log("Exceeded maximum number of retries");
     }

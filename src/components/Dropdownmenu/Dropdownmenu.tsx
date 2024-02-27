@@ -23,14 +23,14 @@ const DropdownMenu: FC<TDropdownMenuProps> = (props) => {
           // @ts-ignore
           onChange={(e) => props.setFilter(e.target.value)}
         >
-          <option value="Disabled">Disabled</option>
-          <option value="Product">Product</option>
-          <option value="Brand">Brand</option>
-          <option value="Price">Price</option>
+          <option value="disabled">disabled</option>
+          <option value="product">product</option>
+          <option value="brand">brand</option>
+          <option value="price">price</option>
         </select>
       </div>
       <div>
-        {props.filter && props.filter !== "Disabled" && (
+        {props.filter && (
           <form method="post" onSubmit={props.handleSubmit}>
             <label htmlFor="inputField">Enter {props.filter}:</label>
             <input
