@@ -1,0 +1,25 @@
+.DropdownMenu {
+    width: 100%;
+    padding: 1em;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    align-items: flex-start;
+}
+
+.DropdownMenu__button {
+    padding: 0.1em;
+    margin-left: 0.3em;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    background: #58a linear-gradient(hsla(0, 0%, 100%, 0.2), transparent);
+    border-radius: 0.2em;
+    box-shadow: 0 0.05em 0.25em rgba(0, 0, 0, 0.5);
+    color: white;
+    text-shadow: 0 -0.05em 0.05em rgba(0, 0, 0, 0.5);
+    font-size: 90%;
+    line-height: 1.5;
+    cursor: pointer;
+    width: 30px;
+
+}
