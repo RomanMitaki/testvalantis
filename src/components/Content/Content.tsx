@@ -95,8 +95,8 @@ const Content = () => {
 
   useEffect(() => {}, []);
 
-  console.log(idsChunks, idsChunks.length);
-  console.log(items, items.length);
+  //console.log(idsChunks, idsChunks.length);
+  //console.log(items, items.length);
 
   const handleNextPageClick = useCallback(() => {
     const current = page;
