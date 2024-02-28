@@ -1,5 +1,5 @@
 # Тестовое задание Valantis
-## [Сайт](ttps://romanmitaki.github.io/testvalantis/)
+## [Сайт](https://romanmitaki.github.io/testvalantis/)
 ## Описание
 Тестовое задание Valantis (frontend-junior).
 E-commerce.
