@@ -1,7 +1,7 @@
 import md5 from "md5";
 import { TIds, TItems } from "./types";
 
-export const baseApiUrl = "http://api.valantis.store:40000/";
+export const baseApiUrl = "https://api.valantis.store:41000/";
 const password = "Valantis";
 const currentDate = new Date().toISOString().split("T")[0].replace(/-/g, "");
 const timeStamp = `${password}_${currentDate}`;
